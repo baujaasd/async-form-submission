@@ -20,34 +20,23 @@ document.addEventListener("DOMContentLoaded", function () {
     })
   );
 
-  // custom select (only pc version)
 
-  // detect mobile
-  if (
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
-      navigator.userAgent
-    ) ||
-    /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
-  ) {
-    return false;
-  } else {
-    // custom select
-    (async = () => {
-      const selects = document.querySelectorAll(".custom-select");
-      selects?.forEach((el) => {
-        new Choices(el, {
-          noResultsText: "Ничего не найдено",
-          itemSelectText: "",
-          allowHTML: false,
-          searchEnabled: false,
-          noChoicesText: "Ничего нет",
-          removeItemButton: true,
-          placeholder: true,
-          placeholderValue: "Выберите из списка",
-        });
+  // custom select
+  (async = () => {
+    const selects = document.querySelectorAll(".custom-select");
+    selects?.forEach((el) => {
+      new Choices(el, {
+        noResultsText: "Ничего не найдено",
+        itemSelectText: "",
+        allowHTML: false,
+        searchEnabled: false,
+        noChoicesText: "Ничего нет",
+        removeItemButton: true,
+        placeholder: true,
+        placeholderValue: "Выберите из списка",
       });
-    })();
-  }
+    });
+  })();
 
   (() => {
     const loader = document.querySelector("#loader");
@@ -98,7 +87,7 @@ function handleSubmit(event) {
 
     // if (response.ok) {
     //   const responseData = await response.json();
-      
+
     // } else {
     //   console.error("HTTP Error:", response.status);
     // }
