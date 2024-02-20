@@ -1,0 +1,11 @@
+@media screen and (max-width: 768px) {
+  .form {
+    padding: 36px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .form {
+    padding: 12px;
+  }
+}

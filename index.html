@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>form</title>
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/tailwind-output.css">
+  <link rel="stylesheet" href="assets/css/choices.css">
+  <link rel="stylesheet" href="assets/css/popup.css">
+  <link rel="stylesheet" href="assets/css/push.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/mobile.css">
+  <script src="assets/js/imask.js"></script>
+  <script src="assets/js/choices.js"></script>
+  <script src="assets/js/popup.js"></script>
+  <script defer src="assets/js/push.js"></script>
+  <script defer src="assets/js/app.js"></script>
+</head>
+<body>
+  <div id="loader"></div>
+  <div class="container">
+    <div class="flex items-center justify-center py-2 min-h-screen">
+      <form action="#" method="post" class="form">
+        <fieldset>
+          <legend>Информация о компании</legend>
+          <div class="input-unit required mb-4">
+            <label for="company-name">Название компании</label>
+            <input id="company-name" type="text" name="company" placeholder="Рога и копыта" required>
+          </div>
+
+          <div class="input-unit required mb-4">
+            <label for="firstname">Имя</label>
+            <input id="firstname" type="text" name="firstname" placeholder="Иван" autocomplete="name" required>
+          </div>
+
+          <div class="input-unit required mb-4">
+            <label for="lastname">Фамилия</label>
+            <input id="lastname" type="text" name="lastname" placeholder="Иванов" autocomplete="family-name" required>
+          </div>
+
+          <div class="input-unit required mb-4">
+            <label for="tel">Телефон</label>
+            <input id="tel" type="tel" name="tel" placeholder="+7 (800) 888 88 88" autocomplete="tel" required>
+          </div>
+
+          <div class="input-unit required mb-4">
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" placeholder="test@test.com" autocomplete="email" required>
+          </div>
+
+          <div class="input-unit mb-4">
+            <label for="site">Сайт</label>
+            <input id="site" type="url" name="site" autocomplete="url" placeholder="https://yourcompany.com">
+          </div>
+
+          <details class="details mb-4">
+            <summary class="details-tittle">Аккаунты в социальных сетях</summary>
+            <div class="details-content">
+              <div class="input-unit mb-4">
+                <label for="vk">VKontakte</label>
+                <input id="vk" type="url" name="vk" autocomplete="url" placeholder="https://vk.com/yourcompany">
+              </div>
+
+              <div class="input-unit mb-4">
+                <label for="tg">Telegram</label>
+                <input id="tg" type="url" name="tg" autocomplete="url" placeholder="https://t.me/yourcompany">
+              </div>
+
+              <div class="input-unit mb-4">
+                <label for="wa">Whats App</label>
+                <input id="wa" type="url" name="wa" autocomplete="url" placeholder="https://wa.me/yourcompany">
+              </div>
+
+              <div class="input-unit mb-4">
+                <label for="fb">Facebook</label>
+                <input id="fb" type="url" name="fb" autocomplete="url" placeholder="https://facebook.com/yourcompany">
+              </div>
+
+              <div class="input-unit mb-4">
+                <label for="in">Instagram</label>
+                <input id="in" type="url" name="in" autocomplete="url" placeholder="https://instagram.com/yourcompany">
+              </div>
+            </div>
+          </details>
+
+        </fieldset>
+        <fieldset>
+          <legend>Информация о продукте</legend>
+
+          <div class="custom-select-wrp required mb-4">
+            <label for="nomination">Номинации DairyTech Award 2024</label>
+            <select name="nomination" id="nomination" multiple required class="custom-select">
+              <option value="1">Оборудование и технологии для производства, розлива и упаковки цельномолочной, кисломолочной групп продукции</option>
+              <option value="2">Оборудование и технологии для производства, розлива, упаковки и хранения мороженого</option>
+              <option value="3">Оборудование и технологии для производства, розлива и упаковки продуктов сыроделия (сыры и сырные продукты)</option>
+              <option value="4">Оборудование и технологии для производства, розлива и упаковки продуктов маслоделия (масло сливочное, спреды)</option>
+              <option value="5">Оборудование и технологии для производства, розлива и упаковки сухих молочных продуктов и продуктов глубокой переработки молока</option>
+              <option value="6">Современные упаковочные решения</option>
+              <option value="7">Ингредиенты</option>
+              <option value="8">Автоматизация и цифровизация технологий в молочном производстве</option>
+              <option value="9">Автоматизация и цифровизация бизнес-процессов в молочном производстве</option>
+              <option value="10">Технологии и средства контроля качества</option>
+              <option value="11">Моющие и дезинфицирующие средства в молочной промышленности</option>
+            </select>
+          </div>
+
+          <div class="input-unit required mb-4">
+            <label for="product-name">Название</label>
+            <input id="product-name" type="text" name="product-name" placeholder="Продукт" required>
+          </div>
+
+          <div class="input-unit required mb-4">
+            <label for="description">Описание</label>
+            <textarea name="description" id="description" placeholder="Несколько слов о Вашем продукте" required></textarea>
+          </div>
+
+          <div class="input-unit mb-4">
+            <label for="link">Ссылка на доп. материалы</label>
+            <input id="link" type="url" name="link" autocomplete="url" placeholder="https://yourcompany.com/docs">
+          </div>
+
+          <div class="checkbox-unit required mb-4">
+            <input type="checkbox" name="regulations" id="regulations" required>
+            <label for="regulations">Соглашаюсь с <mark data-popup="popup-regulations">Положением о Премии</mark></label>
+          </div>
+
+          <div class="checkbox-unit required mb-4">
+            <input type="checkbox" name="notification" id="notification" required>
+            <label for="notification">Соглашаюсь на получение <mark data-popup="popup-notification">уведомлений от Организатора</mark></label>
+          </div>
+
+          <div class="checkbox-unit required">
+            <input type="checkbox" name="data" id="data" required>
+            <label for="data">Соглашаюсь на обработку <mark data-popup="popup-data">персональных данных</mark></label>
+          </div>
+
+        </fieldset>
+
+        <button class="btn btn-blue max-w-full mt-6" type="submit" title="Отправить" onclick="handleSubmit(event)">Отправить</button>
+
+      </form>
+    </div>
+  </div>
+
+  <dialog id="popup-regulations" class="popup_wrapper" aria-label="Диалоговое окно: положение премии" aria-hidden="true">
+    <div class="popup">
+      <button class="close_popup" type="button" title="Закрыть"></button>
+      <section class="popup-body">
+        <h2>Положение премии</h2>
+        <p>Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Толку текстами не коварных собрал эта. Проектах подпоясал, переписывается, последний путь на берегу что жизни безопасную текста, безорфографичный там текстов! Мир.</p>
+      </section>
+    </div>
+  </dialog>
+
+  <dialog id="popup-notification" class="popup_wrapper" aria-label="Диалоговое окно: Информация о получении уведомлений" aria-hidden="true">
+    <div class="popup">
+      <button class="close_popup" type="button" title="Закрыть"></button>
+      <section class="popup-body">
+        <h2>Согласие на получение уведомлений от Организатора</h2>
+        <p>Я хочу оставаться в курсе информации о выставках, организуемых ООО "АйТиИ Экспо Интернешнл", и узнавать первым об открытии регистрации посетителей, специальных промокодах на получение бесплатного билета, мероприятиях деловой программы, продажах выставочных стендов, рекламных и спонсорских возможностях и даю свое согласие на получение информации рекламного характера и других актуальных для участников или посетителей сведениях любыми способами (по электронной почте, с помощью смс, через сообщения в мессенджерах и пр.). От получения такой информации я могу отказаться в любое время.</p>
+      </section>
+    </div>
+  </dialog>
+
+  <dialog id="popup-data" class="popup_wrapper" aria-label="Диалоговое окно: согласие на обработку персональных данных" aria-hidden="true">
+    <div class="popup">
+      <button class="close_popup" type="button" title="Закрыть"></button>
+      <section class="popup-body">
+        <h2>Согласие на обработку персональных данных</h2>
+        <p>Настоящим я даю ООО «АйТиИ Экспо Интернешнл» (далее – «Общество») свое согласие на автоматизированную, неавтоматизированную и смешанную обработку, в том числе сбор, запись, систематизацию, накопление, хранение, уточнение (обновление, изменение), извлечение, использование, передачу (распространение, предоставление, доступ), обезличивание, блокирование и уничтожение моих персональных данных, передаваемых мною (ФИО, место работы, должность, телефон, адрес электронной почты и пр.), с целью обеспечения моего участия в выставке DairyTech, получения обратной связи, направления мне информационных материалов, обеспечения моего общения с участниками и посетителями выставки.</p>
+        
+        <p>Подтверждаю, что ознакомлен и согласен <a href="#" title="Политикой обработки персональных данных" target="_blank">Политикой обработки и обеспечения безопасности персональных данных и Правилами посещения мероприятий</a>, организуемых ООО «АйТиИ Экспо Интернешнл».</p>
+      </section>
+    </div>
+  </dialog>
+  
+</body>
+</html>
