@@ -102,4 +102,29 @@ function handleSubmit(event) {
   } finally {
     // some
   }
+
+  // Функция для изменения содержимого мета-тега viewport
+function setViewportContent(content) {
+  let viewportMetaTag = document.querySelector('meta[name="viewport"]');
+  if (viewportMetaTag) {
+    viewportMetaTag.content = content;
+  }
+}
+
+// Элементы формы, для которых необходимо отключить масштабирование
+const formInputs = document.querySelectorAll('input, select, textarea');
+
+// Добавление обработчиков событий
+formInputs.forEach(input => {
+  input.addEventListener('focus', () => {
+    // Отключаем масштабирование при фокусе
+    setViewportContent("width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no");
+  });
+
+  input.addEventListener('blur', () => {
+    // Восстанавливаем масштабирование при потере фокуса
+    setViewportContent("width=device-width, initial-scale=1.0");
+  });
+});
+
 }
