@@ -403,6 +403,10 @@ body {
   user-select: none;
 }
 
+details summary::-webkit-details-marker {
+  display: none;
+}
+
 .details-tittle::before {
   content: "";
   position: absolute;
