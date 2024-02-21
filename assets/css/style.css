@@ -416,7 +416,7 @@ details summary::-webkit-details-marker {
   width: 30px;
   height: 30px;
   border-radius: 100%;
-  background: transparent url("../../assets/img/arrow-sm.svg") center / 10px no-repeat;
+  background: var(--blueWhite) url("../../assets/img/arrow-sm.svg") center / 10px no-repeat;
   -webkit-transition: var(--anim);
   -o-transition: var(--anim);
   transition: var(--anim);
@@ -424,12 +424,6 @@ details summary::-webkit-details-marker {
 
 .details[open] .details-tittle::before {
   rotate: 180deg;
-}
-
-@media (hover) {
-  .details-tittle:hover:before {
-    background: var(--blueWhite) url("../../assets/img/arrow-sm.svg") center / 10px no-repeat;
-  }
 }
 
 .details-content {
