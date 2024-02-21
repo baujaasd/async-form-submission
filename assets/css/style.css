@@ -133,8 +133,8 @@ body {
 
 .btn {
   -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   display: block;
   border-radius: 12px;
   padding: 12px;
@@ -194,8 +194,8 @@ body {
 .input-unit input,
 .input-unit textarea {
   -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   display: block;
   width: 100%;
   padding: 12px;
@@ -214,22 +214,26 @@ body {
   min-height: 108px;
 }
 
-.input-unit input::-webkit-input-placeholder, .input-unit textarea::-webkit-input-placeholder {
+.input-unit input::-webkit-input-placeholder,
+.input-unit textarea::-webkit-input-placeholder {
   color: var(--darkBlue);
   opacity: .5;
 }
 
-.input-unit input::-moz-placeholder, .input-unit textarea::-moz-placeholder {
+.input-unit input::-moz-placeholder,
+.input-unit textarea::-moz-placeholder {
   color: var(--darkBlue);
   opacity: .5;
 }
 
-.input-unit input:-ms-input-placeholder, .input-unit textarea:-ms-input-placeholder {
+.input-unit input:-ms-input-placeholder,
+.input-unit textarea:-ms-input-placeholder {
   color: var(--darkBlue);
   opacity: .5;
 }
 
-.input-unit input::-ms-input-placeholder, .input-unit textarea::-ms-input-placeholder {
+.input-unit input::-ms-input-placeholder,
+.input-unit textarea::-ms-input-placeholder {
   color: var(--darkBlue);
   opacity: .5;
 }
@@ -261,14 +265,14 @@ body {
   display: flex;
   gap: 8px;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .checkbox-unit input {
   -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   display: block;
   width: 24px;
   height: 24px;
@@ -276,7 +280,7 @@ body {
   border: 1px solid var(--darkBlue);
   background-color: var(--white);
   -ms-flex-negative: 0;
-      flex-shrink: 0;
+  flex-shrink: 0;
   -webkit-transition: var(--anim);
   -o-transition: var(--anim);
   transition: var(--anim);
@@ -385,12 +389,18 @@ body {
 .details-tittle {
   position: relative;
   -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   display: block;
   font-size: 18px;
   padding: 0 24px 4px 0;
   cursor: pointer;
+  list-style-type: none;
+  list-style: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .details-tittle::before {
