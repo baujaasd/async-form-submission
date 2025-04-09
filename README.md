@@ -2,7 +2,7 @@
 
 Этот проект представляет собой лёгкую и удобную утилиту для асинхронной отправки HTML-форм с поддержкой:
 
-Github pages - https://baujaasd.github.io/form/
+Github pages - https://baujaasd.github.io/async-form-submission/
 
 - Валидации полей ввода
 - Загрузки файлов
