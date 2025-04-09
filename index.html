@@ -7,23 +7,26 @@
   <link rel="stylesheet" href="assets/css/reset.css">
   <link rel="stylesheet" href="assets/css/tailwind-output.css">
   <link rel="stylesheet" href="assets/css/choices.css">
-  <link rel="stylesheet" href="assets/css/popup.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/baujaasd/just-popup@latest/popup.min.css">
   <link rel="stylesheet" href="assets/css/push.css">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/mobile.css">
   <script src="assets/js/imask.js"></script>
   <script src="assets/js/choices.js"></script>
-  <script src="assets/js/popup.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/baujaasd/just-popup@latest/popup.min.js"></script>
   <script defer src="assets/js/push.js"></script>
   <script defer src="assets/js/app.js"></script>
 </head>
 <body>
   <div id="loader"></div>
+
   <div class="container">
+
     <div class="flex items-center justify-center py-2 min-h-screen">
-      <form action="#" method="post" class="form">
+      <form action="https://httpbin.org/post" method="post" class="form" onsubmit="sendAjaxForm(this, false); return false">
         <fieldset>
           <legend>Информация о компании</legend>
+
           <div class="input-unit required mb-4">
             <label for="company-name">Название компании</label>
             <input id="company-name" type="text" name="company" placeholder="Рога и копыта" required>
@@ -89,7 +92,7 @@
           <legend>Информация о продукте</legend>
 
           <div class="custom-select-wrp required mb-4">
-            <label for="nomination">Номинации DairyTech Award 2024</label>
+            <label for="nomination">Номинации</label>
             <select name="nomination" id="nomination" multiple required class="custom-select">
               <option value="1">Оборудование и технологии для производства, розлива и упаковки цельномолочной, кисломолочной групп продукции</option>
               <option value="2">Оборудование и технологии для производства, розлива, упаковки и хранения мороженого</option>
@@ -137,15 +140,15 @@
 
         </fieldset>
 
-        <button class="btn btn-blue max-w-full mt-6" type="submit" title="Отправить" onclick="handleSubmit(event)">Отправить</button>
+        <button class="btn btn-blue max-w-full mt-6" type="submit" title="Отправить">Отправить</button>
 
       </form>
     </div>
   </div>
 
-  <dialog id="popup-regulations" class="popup_wrapper" aria-label="Диалоговое окно: положение премии" aria-hidden="true">
-    <div class="popup">
-      <button class="close_popup" type="button" title="Закрыть"></button>
+  <dialog id="popup-regulations" class="popup" aria-label="Диалоговое окно: положение премии" aria-hidden="true">
+    <div role="document" class="popup__content">
+      <button aria-label="Закрыть диалоговое окно" class="popup__close-btn" type="button" title="Закрыть"></button>
       <section class="popup-body">
         <h2>Положение премии</h2>
         <p>Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Толку текстами не коварных собрал эта. Проектах подпоясал, переписывается, последний путь на берегу что жизни безопасную текста, безорфографичный там текстов! Мир.</p>
@@ -153,9 +156,9 @@
     </div>
   </dialog>
 
-  <dialog id="popup-notification" class="popup_wrapper" aria-label="Диалоговое окно: Информация о получении уведомлений" aria-hidden="true">
-    <div class="popup">
-      <button class="close_popup" type="button" title="Закрыть"></button>
+  <dialog id="popup-notification" class="popup" aria-label="Диалоговое окно: Информация о получении уведомлений" aria-hidden="true">
+    <div role="document" class="popup__content">
+      <button aria-label="Закрыть диалоговое окно" class="popup__close-btn" type="button" title="Закрыть"></button>
       <section class="popup-body">
         <h2>Согласие на получение уведомлений от Организатора</h2>
         <p>Я хочу оставаться в курсе информации о выставках, организуемых ООО "АйТиИ Экспо Интернешнл", и узнавать первым об открытии регистрации посетителей, специальных промокодах на получение бесплатного билета, мероприятиях деловой программы, продажах выставочных стендов, рекламных и спонсорских возможностях и даю свое согласие на получение информации рекламного характера и других актуальных для участников или посетителей сведениях любыми способами (по электронной почте, с помощью смс, через сообщения в мессенджерах и пр.). От получения такой информации я могу отказаться в любое время.</p>
@@ -163,9 +166,9 @@
     </div>
   </dialog>
 
-  <dialog id="popup-data" class="popup_wrapper" aria-label="Диалоговое окно: согласие на обработку персональных данных" aria-hidden="true">
-    <div class="popup">
-      <button class="close_popup" type="button" title="Закрыть"></button>
+  <dialog id="popup-data" class="popup" aria-label="Диалоговое окно: согласие на обработку персональных данных" aria-hidden="true">
+    <div role="document" class="popup__content">
+      <button aria-label="Закрыть диалоговое окно" class="popup__close-btn" type="button" title="Закрыть"></button>
       <section class="popup-body">
         <h2>Согласие на обработку персональных данных</h2>
         <p>Настоящим я даю ООО «АйТиИ Экспо Интернешнл» (далее – «Общество») свое согласие на автоматизированную, неавтоматизированную и смешанную обработку, в том числе сбор, запись, систематизацию, накопление, хранение, уточнение (обновление, изменение), извлечение, использование, передачу (распространение, предоставление, доступ), обезличивание, блокирование и уничтожение моих персональных данных, передаваемых мною (ФИО, место работы, должность, телефон, адрес электронной почты и пр.), с целью обеспечения моего участия в выставке DairyTech, получения обратной связи, направления мне информационных материалов, обеспечения моего общения с участниками и посетителями выставки.</p>

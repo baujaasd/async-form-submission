@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
     })
   );
 
-
   // custom select
   (async = () => {
     const selects = document.querySelectorAll(".custom-select");
@@ -38,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   })();
 
+  // loader
   (() => {
     const loader = document.querySelector("#loader");
     setTimeout(() => {
@@ -47,84 +47,128 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-function handleSubmit(event) {
-
-  event.preventDefault();
-
-  const form = event.target.closest("form");
-  let isFormValid = true;
-
-  const inputs = form.querySelectorAll("[required]");
-  inputs.forEach((input) => {
-    if (!input.value.trim()) {
-      input.classList.add("error");
-      isFormValid = false;
-    } else {
-      input.classList.remove("error");
-    }
-  });
-
-  if (!isFormValid) {
-    window.notificationSystem.createNotification({
-      title: "Ошибка",
-      message: "Заполните обязательные поля формы",
-      additionalClass: "error"
-    });
-    return; // Прекращаем выполнение функции, если форма невалидна
+/**
+ * Асинхронная отправка формы с поддержкой файлов, таймаутом и кастомными уведомлениями
+ *
+ * @param {HTMLFormElement} form - Форма для отправки
+ * @param {boolean} isPopup - Форма в попапе?
+ * @param {Function} [callback] - Callback после успешной отправки
+ * @param {number} timeoutMs - Таймаут (по умолчанию 10000 мс)
+ */
+async function sendAjaxForm(form, isPopup = false, callback, timeoutMs = 10000) {
+  if (!form.checkValidity()) {
+    showNotification("Ошибка", "Пожалуйста, заполните все обязательные поля.", true);
+    return;
   }
 
-  const formData = new FormData(form);
-  const formJSON = Object.fromEntries(formData.entries());
+  const submitBtn = form.querySelector("[type=submit]");
+  if (!submitBtn) return;
+
+  // Блокировка кнопки отправки
+  submitBtn.disabled = true;
+  submitBtn.classList.add("disabled");
+
+  // Таймаут через AbortController
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
 
   try {
-    // const response = await fetch(form.getAttribute("action"), {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(formJSON),
-    // });
+    const formData = new FormData(form);
 
-    // if (response.ok) {
-    //   const responseData = await response.json();
-
-    // } else {
-    //   console.error("HTTP Error:", response.status);
-    // }
-
-    window.notificationSystem.createNotification({
-      title: "Форма была успешно отправлена",
-      message: "Скоро с мы с Вами свяжемся",
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' },
+      signal: controller.signal
     });
 
+    clearTimeout(timer); // снимаем таймер после ответа
+
+    if (!response.ok) {
+      throw new Error(`Ошибка: ${response.status} ${response.statusText}`);
+    }
+
+    let data;
+    try {
+      data = await response.json();
+    } catch (jsonError) {
+      throw new Error("Неверный JSON от сервера");
+    }
+
+    if (data.status === 'success') {
+      // Закрываем попап
+      if (isPopup && form.closest('.popup')) {
+        togglePopup(form.closest('.popup').id);
+      }
+
+      form.reset(); // сброс формы
+
+      if (typeof callback === 'function') {
+        callback(data);
+      } else {
+        const msg = form.dataset.successMessage || "Форма успешно отправлена.";
+        showNotification("Успешно", msg);
+      }
+
+    } else {
+      const serverMsg = data.message || "Ошибка на сервере.";
+      showNotification("Ошибка", serverMsg, true);
+    }
+
   } catch (error) {
-    console.error("Submission error:", error);
+    if (error.name === 'AbortError') {
+      showNotification("Ошибка", "Время ожидания истекло. Попробуйте снова.", true);
+    } else {
+      console.error("Ошибка отправки формы:", error);
+      showNotification("Ошибка", error.message || "Не удалось отправить форму.", true);
+    }
+
   } finally {
-    // some
-  }
-
-  // Функция для изменения содержимого мета-тега viewport
-function setViewportContent(content) {
-  let viewportMetaTag = document.querySelector('meta[name="viewport"]');
-  if (viewportMetaTag) {
-    viewportMetaTag.content = content;
+    submitBtn.disabled = false;
+    submitBtn.classList.remove("disabled");
   }
 }
 
-// Элементы формы, для которых необходимо отключить масштабирование
-const formInputs = document.querySelectorAll('input, select, textarea');
-
-// Добавление обработчиков событий
-formInputs.forEach(input => {
-  input.addEventListener('focus', () => {
-    // Отключаем масштабирование при фокусе
-    setViewportContent("width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no");
+/**
+ * Функция для показа кастомного уведомления
+ * Использует систему уведомлений window.notificationSystem
+ * 
+ * @param {string} title - Заголовок уведомления (например, "Успешно" или "Ошибка")
+ * @param {string} message - Текст сообщения для отображения
+ * @param {boolean} [isError=false] - Флаг, если это ошибка (добавляется класс 'error')
+ */
+function showNotification(title, message, isError = false) {
+  window.notificationSystem.createNotification({
+    title: title,
+    message: message,
+    additionalClass: isError ? 'error' : ''  // Добавляем класс 'error' для ошибок
   });
+}
 
-  input.addEventListener('blur', () => {
-    // Восстанавливаем масштабирование при потере фокуса
-    setViewportContent("width=device-width, initial-scale=1.0");
-  });
+// file upload ui
+document.addEventListener('DOMContentLoaded', () => {
+  const fileInputs = document.querySelectorAll('input[type="file"][multiple]');
+
+  for (const input of fileInputs) {
+    const label = input.closest('.input-file')?.querySelector('.input-file--text');
+    if (!label) continue;
+
+    input.addEventListener('change', () => {
+      const count = input.files.length;
+
+      // Защита: если input "сломался" или браузер не поддерживает FileList
+      if (!input.files || typeof count !== 'number') {
+        label.textContent = 'Ошибка выбора файла';
+        return;
+      }
+
+      if (count === 0) {
+        label.textContent = 'Прикрепить файл / файлы';
+      } else if (count === 1) {
+        label.textContent = `Выбран файл: ${input.files[0].name}`;
+      } else {
+        label.textContent = `Файлов выбрано: ${count}`;
+      }
+    });
+  }
 });
-
-}
