@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Форма с полной доступностью</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2rem;
+    }
+    form {
+      max-width: 700px;
+    }
+    label {
+      display: block;
+      margin: 1rem 0;
+    }
+    label > span {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 500;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 0.5rem;
+    }
+    fieldset {
+      margin-top: 2rem;
+      padding: 1rem;
+    }
+    small {
+      display: block;
+      margin-top: 0.3rem;
+      color: #666;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="form-title">Регистрация</h1>
+
+  <form action="/submit" method="POST" aria-labelledby="form-title" aria-describedby="form-desc" novalidate>
+    
+    <p id="form-desc">Заполните обязательные поля. <span aria-hidden="true">*</span> — обязательное.</p>
+
+    <fieldset>
+      <legend>Личная информация</legend>
+
+      <label>
+        <span>Имя <span aria-hidden="true">*</span></span>
+        <input type="text" name="name" required aria-required="true" aria-describedby="name-hint">
+        <small id="name-hint">Введите ваше полное имя</small>
+      </label>
+
+      <label>
+        <span>Email <span aria-hidden="true">*</span></span>
+        <input type="email" name="email" required aria-required="true" autocomplete="email">
+      </label>
+
+      <label>
+        <span>Пароль <span aria-hidden="true">*</span></span>
+        <input type="password" name="password" required minlength="6" aria-required="true">
+        <small>Минимум 6 символов</small>
+      </label>
+
+      <label>
+        <span>Телефон</span>
+        <input type="tel" name="tel" pattern="^\+?[0-9\s\-]{7,15}$" placeholder="+7 123 456-78-90" autocomplete="tel">
+      </label>
+
+      <label>
+        <span>Дата рождения</span>
+        <input type="date" name="dob">
+      </label>
+
+      <label>
+        <span>Сайт</span>
+        <input type="url" name="url" placeholder="https://example.com">
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Дополнительно</legend>
+
+      <label>
+        <span>Любимое число</span>
+        <input type="number" name="number" min="1" max="100">
+      </label>
+
+      <label>
+        <span>Уровень счастья (1–10)</span>
+        <input type="range" name="happiness" min="1" max="10" value="5"
+               aria-valuemin="1" aria-valuemax="10" aria-valuenow="5" role="slider">
+      </label>
+
+      <label>
+        <span>Любимый цвет</span>
+        <input type="color" name="color">
+      </label>
+
+      <label>
+        <span>Файл</span>
+        <input type="file" name="file" multiple accept=".jpg,.png,.pdf">
+        <small>Допустимые форматы: JPG, PNG, PDF</small>
+      </label>
+
+      <label>
+        <span>Время</span>
+        <input type="time" name="time">
+      </label>
+
+      <label>
+        <span>Дата и время</span>
+        <input type="datetime-local" name="appointment">
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Пол и интересы</legend>
+
+      <span id="gender-group">Ваш пол *</span>
+      <div role="radiogroup" aria-labelledby="gender-group">
+        <label for="male"><input type="radio" name="gender" id="male" value="male" required> Мужской</label>
+        <label for="female"><input type="radio" name="gender" id="female" value="female"> Женский</label>
+        <label for="other"><input type="radio" name="gender" id="other" value="other"> Другое</label>
+      </div>
+
+      <span id="interests-group">Интересы</span>
+      <div role="group" aria-labelledby="interests-group">
+        <label for="music"><input type="checkbox" name="interests" value="music" id="music"> Музыка</label>
+        <label for="travel"><input type="checkbox" name="interests" value="travel" id="travel"> Путешествия</label>
+        <label for="sports"><input type="checkbox" name="interests" value="sports" id="sports"> Спорт</label>
+      </div>
+
+      <label>
+        <span>Страна</span>
+        <select name="country">
+          <option value="">Выберите</option>
+          <option value="ru">Россия</option>
+          <option value="ua">Украина</option>
+          <option value="by">Беларусь</option>
+        </select>
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Комментарий</legend>
+      <label>
+        <span>Ваше сообщение</span>
+        <textarea name="message" rows="4" placeholder="Ваш текст..."></textarea>
+      </label>
+    </fieldset>
+
+    <input type="hidden" name="form_id" value="registration_form_01" aria-hidden="true">
+
+    <div id="form-errors" role="alert" aria-live="polite" class="error" style="display:none;"></div>
+
+    <button type="submit" aria-label="Отправить форму">Отправить</button>
+    <button type="reset" aria-label="Сбросить форму">Сбросить</button>
+
+  </form>
+
+  <script>
+    // Минимальная проверка для отображения ошибок
+    const form = document.querySelector("form");
+    const errorBlock = document.getElementById("form-errors");
+
+    form.addEventListener("submit", (e) => {
+      errorBlock.style.display = "none";
+      errorBlock.textContent = "";
+
+      const name = form.elements["name"];
+      const email = form.elements["email"];
+
+      if (!name.value || !email.value || !form.elements["gender"].value) {
+        e.preventDefault();
+        errorBlock.textContent = "Пожалуйста, заполните все обязательные поля.";
+        errorBlock.style.display = "block";
+        name.focus();
+      }
+    });
+  </script>
+
+</body>
+</html>
